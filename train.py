@@ -1,3 +1,5 @@
+import argparse
+
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader
@@ -17,76 +19,99 @@ from ChemicalClassifier import ChemicalClassifier
 from image_transforms import get_transforms
 from shared import get_num_classes
 
+def train(epochs:int,save_model :bool,device:torch.device):
+    transform = get_transforms()
 
-transform = get_transforms()
+    #df = pd.read_csv("../data/Running Shoes Data.csv")
+    #train_df, _ = train_test_split(df, test_size=0.2, random_state=42)
 
-#df = pd.read_csv("../data/Running Shoes Data.csv")
-#train_df, _ = train_test_split(df, test_size=0.2, random_state=42)
+    #train_dataset = ShoeDataset(train_df, transform=transform)
+    #train_data = [(img, label) for img, label in train_dataset if img is not None and label is not None]
+    #train_loader = DataLoader(train_data, batch_size=32, shuffle=True, num_workers=0)
 
-#train_dataset = ShoeDataset(train_df, transform=transform)
-#train_data = [(img, label) for img, label in train_dataset if img is not None and label is not None]
-#train_loader = DataLoader(train_data, batch_size=32, shuffle=True, num_workers=0)
+    data_transforms = {
+        'train': transforms.Compose([
+            transforms.RandomResizedCrop(224),
+            transforms.RandomHorizontalFlip(),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+        'val': transforms.Compose([
+            transforms.Resize(256),
+            transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+    }
+    # based on https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
+    data_dir = '/home/christian/git/testPyTorch/DATASET'
+    image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
+                                              data_transforms[x])
+                      for x in ['train', 'val']}
+    dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=4,
+                                                  shuffle=True, num_workers=4)
+                   for x in ['train', 'val']}
 
-data_transforms = {
-    'train': transforms.Compose([
-        transforms.RandomResizedCrop(224),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-    'val': transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-}
-# based on https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
-data_dir = '/home/christian/git/testPyTorch/DATASET'
-image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
-                                          data_transforms[x])
-                  for x in ['train', 'val']}
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=4,
-                                              shuffle=True, num_workers=4)
-               for x in ['train', 'val']}
+    num_classes = get_num_classes()
+    model = ChemicalClassifier(num_classes=num_classes)
 
-num_classes = get_num_classes()
-model = ChemicalClassifier(num_classes=num_classes)
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+    model.to(device)
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-print("Start training...")
-epochs = 20
-losses = []
+    print("Start training...")
 
-print("Number of batches:", len(dataloaders['train']))
+    #store for printing
+    losses = []
 
-for epoch in range(epochs):
-    model.train()
-    running_loss = 0.0
-    for images, labels in dataloaders['train']:
-        images, labels = images.to(device), labels.to(device)
-        optimizer.zero_grad()
-        outputs = model(images)
-        loss = criterion(outputs, labels)
-        loss.backward()
-        optimizer.step()
-        running_loss += loss.item() * images.size(0)
+    print("Number of batches:", len(dataloaders['train']))
 
-    epoch_loss = running_loss / len(dataloaders['train'])
-    losses.append(epoch_loss)
-    print(f"Epoch {epoch + 1}/{epochs}, Loss: {epoch_loss:.4f}")
+    for epoch in range(epochs):
+        model.train()
+        running_loss = 0.0
+        for images, labels in dataloaders['train']:
+            images, labels = images.to(device), labels.to(device)
+            optimizer.zero_grad()
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+            running_loss += loss.item() * images.size(0)
 
-plt.plot(range(1, epochs + 1), losses, marker="o")
-plt.title("Training Loss Curve")
-plt.xlabel("Epoch")
-plt.ylabel("Loss")
-plt.grid(True)
-plt.show()
-plt.savefig("training_loss_curve.png")
+        epoch_loss = running_loss / len(dataloaders['train'])
+        losses.append(epoch_loss)
+        print(f"Epoch {epoch + 1}/{epochs}, Loss: {epoch_loss:.4f}")
 
-torch.save(model.state_dict(), "RunningShoesClassifier.pth")
-print("Saved model to RunningShoesClassifier.pth")
+    plt.plot(range(1, epochs + 1), losses, marker="o")
+    plt.title("Training Loss Curve")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.grid(True)
+    plt.show()
+    plt.savefig("training_loss_curve.png")
+
+    torch.save(model.state_dict(), "RunningShoesClassifier.pth")
+    print("Saved model to RunningShoesClassifier.pth")
+
+
+def main():
+    # Training settings
+    parser = argparse.ArgumentParser(description='PyTorch chemical training')
+    parser.add_argument('--epochs', type=int, default=14, metavar='N',
+                        help='number of epochs to train (default: 14)')
+    parser.add_argument('--save-model', action='store_true',
+                        help='For Saving the current Model')
+    parser.add_argument('--cpu', action='store_true',
+                        help='for use cpu instead of cuda')
+
+    args = parser.parse_args()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if (args.cpu):
+        print("Running on CPU")
+        device = torch.device("cpu")
+
+    train(args.epochs,args.save_model,device)
+
+if __name__ == '__main__':
+        main()
