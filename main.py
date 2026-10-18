@@ -270,7 +270,7 @@ def main():
     out = torchvision.utils.make_grid(inputs)
 
     imshow(out, title=[class_names[x] for x in classes])
-
+    #TODO remove this model or use it
     model_ft = models.resnet18(weights='IMAGENET1K_V1')
     num_ftrs = model_ft.fc.in_features
     # Here the size of each output sample is set to 2.
@@ -289,7 +289,7 @@ def main():
 
     #or
     learning_rate = 0.001
-    num_epochs = 35
+    num_epochs = args.epochs
     #duplicated criterion = nn.CrossEntropyLoss()
     #https://swigley.github.io/Image%20Classification.html
     #(If you need a starting point, the VGG networks work great and are straightforward to use)
@@ -313,11 +313,24 @@ def main():
 
     #or optimizer = torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
-    train_model(device,dataloaders,dataset_sizes,model, criterion, optimizer, scheduler, num_epochs=25)
+    train_model(device,dataloaders,dataset_sizes,model, criterion, optimizer, scheduler, num_epochs)
 
     if args.save_model:
-        torch.save(model.state_dict(), "chimie_cnn.pt")
-        print("model chimie_cnn.pt saved")
+        # Save the checkpoint
+        # https://pytorch.org/docs/stable/notes/serialization.html#recommend-saving-models
+        #https://www.geeksforgeeks.org/deep-learning/save-and-load-models-in-pytorch/
+        checkpoint = {
+            'epoch': num_epochs,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'class_to_idx': image_datasets['train'].class_to_idx,
+            'preprocessing': {
+                'mean': [0.485, 0.456, 0.406],
+                'std': [0.229, 0.224, 0.225]}
+        }
+
+        torch.save(checkpoint, 'chimie_cnn.pth')
+        print("model chimie_cnn.pth saved")
 
 if __name__ == '__main__':
     main()
