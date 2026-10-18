@@ -156,9 +156,10 @@ def process_image_with_model(model_file_name,image):
     #set in evaluation mode
     loaded_model.eval()
 
-    probs, classes = predict_from_image(image,loaded_model)
-    print(probs)
-    print(classes)
+    #probs, classes =
+    predict_from_image(image,loaded_model)
+    #print(probs)
+    #print(classes)
 
 def main():
     # Training settings
