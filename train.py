@@ -109,11 +109,13 @@ def train(epochs:int,save_model :bool,device:torch.device, model_name : str):
                      best_acc = epoch_acc
                      torch.save(model.state_dict(), best_model_params_path)
 
-            time_elapsed = time.time() - since
-            print(f'Training complete in {time_elapsed // 60:.0f}m {time_elapsed % 60:.0f}s')
-            print(f'Best val Acc: {best_acc:4f}')
+
             # load best model weights
             model.load_state_dict(torch.load(best_model_params_path, weights_only=True))
+
+        time_elapsed = time.time() - since
+        print(f'Training complete in {time_elapsed // 60:.0f}m {time_elapsed % 60:.0f}s')
+        print(f'Best val Acc: {best_acc:4f}')
 
         plt.plot(range(1, epochs + 1), losses, marker="o")
         plt.title("Training Loss Curve")
