@@ -25,8 +25,11 @@ import os
 from PIL import Image
 from tempfile import TemporaryDirectory
 from ChemicalClassifier import ChemicalClassifier
-from image_transforms import get_transforms
+from image_transforms import get_transforms, get_transforms_validation
 from sklearn.preprocessing import LabelEncoder
+
+from shared import get_num_classes
+
 
 def test(model, device, test_loader):
     model.eval()
@@ -113,7 +116,7 @@ def predict(image_path, model, topk=5):
         return (probs, classes)
 
 def predict_from_image(image_path, model, topk=5):
-    transform = get_transforms()
+    transform = get_transforms_validation()
     try:
         image = Image.open(image_path).convert("RGB")
     except Exception as e:
@@ -145,13 +148,13 @@ def process_image_with_model(model_file_name,image):
         print("model does not exist")
         return
 
-    loaded_model = ChemicalClassifier(num_classes=6) #TODO rmeove hard coded
     #device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    device='cpu'
+    device=torch.device('cpu')
+    num_classes = get_num_classes() #38 # 6
+    loaded_model = ChemicalClassifier(num_classes)  # TODO remove hard coded
     loaded_model.to(device)
     #toto=torch.load("/home/christian/git/RunningShoesClassifier/outputs/models/RunningShoesClassifier.pth")
-    toto = torch.load("RunningShoesClassifier.pth")
-    loaded_model.load_state_dict(toto)
+    loaded_model.load_state_dict(torch.load(model_file_name, map_location=device))
 
     #set in evaluation mode
     loaded_model.eval()
