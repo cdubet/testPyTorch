@@ -23,6 +23,11 @@ import time
 import os
 from PIL import Image
 from tempfile import TemporaryDirectory
+import sys
+
+#sys.path.append(os.path.abspath(os.path.join("..", "src")))
+
+from ChemicalClassifier import ChemicalClassifier
 
 class Net(nn.Module):
     def __init__(self):
@@ -294,8 +299,11 @@ def main():
     #https://swigley.github.io/Image%20Classification.html
     #(If you need a starting point, the VGG networks work great and are straightforward to use)
     #pretrained=True The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
-    model = models.vgg19(weights='DEFAULT')
+    #model = models.vgg19(weights='DEFAULT')
 
+    num_classes = 6 #TODO make a param for number of classes (kolben, becher ....) get_num_classes()
+    model = ChemicalClassifier(num_classes=num_classes)
+    
     n_inputs = 25088
     classifier = nn.Sequential(OrderedDict([
         ('dropout2', nn.Dropout(0.5)),
@@ -328,8 +336,8 @@ def main():
                 'mean': [0.485, 0.456, 0.406],
                 'std': [0.229, 0.224, 0.225]}
         }
-
-        torch.save(checkpoint, 'chimie_cnn.pth')
+        torch.save(model.state_dict(), "chimie_cnn.pth")
+        #TODO torch.save(checkpoint, 'chimie_cnn.pth')
         print("model chimie_cnn.pth saved")
 
 if __name__ == '__main__':

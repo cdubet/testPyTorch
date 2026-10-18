@@ -24,7 +24,9 @@ import time
 import os
 from PIL import Image
 from tempfile import TemporaryDirectory
-
+from ChemicalClassifier import ChemicalClassifier
+from image_transforms import get_transforms
+from sklearn.preprocessing import LabelEncoder
 
 def test(model, device, test_loader):
     model.eval()
@@ -110,19 +112,51 @@ def predict(image_path, model, topk=5):
 
         return (probs, classes)
 
-def process_image_with_model(model,image):
+def predict_from_image(image_path, model, topk=5):
+    transform = get_transforms()
+    try:
+        image = Image.open(image_path).convert("RGB")
+    except Exception as e:
+        print(f"Error opening image: {e}")
+        return None, None
+    device="cpu"
+    image_tensor = transform(image).unsqueeze(0).to(device)
+
+    with torch.no_grad():
+        output = model(image_tensor)
+        probabilities = torch.nn.functional.softmax(output, dim=1)
+        top5_prob, top5_catid = torch.topk(probabilities, 5)
+        _, predicted = torch.max(output, 1)
+
+    predicted_idx = predicted.item()
+    #index
+    print  (predicted_idx)
+    print (top5_catid)
+    print (probabilities)
+    return predicted_idx
+   # predicted_model = label_encoder.inverse_transform([predicted_idx])[0]
+
+def process_image_with_model(model_file_name,image):
     #check files exists
     if not Path(image).exists():
         print("image does not exist")
         return
-    if not Path(model).exists:
+    if not Path(model_file_name).exists:
         print("model does not exist")
         return
-    loaded_model = models.vgg19(weights='DEFAULT')
-    loaded_model.load_state_dict(torch.load(model))
-    print(loaded_model)
 
-    probs, classes = predict(image,loaded_model)
+    loaded_model = ChemicalClassifier(num_classes=6) #TODO rmeove hard coded
+    #device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device='cpu'
+    loaded_model.to(device)
+    #toto=torch.load("/home/christian/git/RunningShoesClassifier/outputs/models/RunningShoesClassifier.pth")
+    toto = torch.load("RunningShoesClassifier.pth")
+    loaded_model.load_state_dict(toto)
+
+    #set in evaluation mode
+    loaded_model.eval()
+
+    probs, classes = predict_from_image(image,loaded_model)
     print(probs)
     print(classes)
 
