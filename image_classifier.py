@@ -19,7 +19,13 @@ IMAGE_SIZE = 224
 BATCH_SIZE = 8
 EPOCHS = 30
 ARCHITECTURE = "resnet18"
-
+#ARCHITECTURE = "vgg19"
+#https://github.com/MaitreyaM/Detailed-Image-Classification-Pytorch/blob/main/VGG19_classification.ipynb
+#num_features=vgg19.classifier[6].in_features
+#vgg19.classifier[6]=nn.Linear(num_features,6)
+#vgg19=vgg19.to(device)
+#criterion=nn.CrossEntropyLoss()
+#optimizer=optim.Adam(vgg19.classifier[6].parameters(),lr=0.001)
 
 class ImageClassifier(nn.Module):
     def __init__(self, num_classes: int, pretrained: bool = False) -> None:
