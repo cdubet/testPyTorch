@@ -24,7 +24,7 @@ import time
 import os
 from PIL import Image
 from tempfile import TemporaryDirectory
-from ChemicalClassifier import  ImageClassifier_Resnet18
+from ChemicalClassifier import ImageClassifier_Resnet18, ImageClassifier_vgg19
 from image_transforms import  make_transforms
 from sklearn.preprocessing import LabelEncoder
 from shared import  get_image_width, get_image_height
@@ -45,7 +45,7 @@ def get_model( model_path: Path,device):
 
     checkpoint = torch.load(model_path, map_location=device)
     classes = checkpoint["classes"]
-    model = ImageClassifier_Resnet18(len(classes)).to(device)
+    model = ImageClassifier_vgg19(len(classes)).to(device) #ImageClassifier_Resnet18(len(classes)).to(device)
     model.load_state_dict(checkpoint["model_state"])
     model.eval()
     return model,classes

@@ -20,6 +20,17 @@ class ImageClassifier_Resnet18(nn.Module):
     #        x = feature_extractor(x)
     #        x = x.view(x.size(0), -1)
     #    return x
+class ImageClassifier_vgg19(nn.Module):
+    def __init__(self, num_classes: int, pretrained: bool = False) -> None:
+        super().__init__()
+        weights = models.VGG19_Weights.DEFAULT if pretrained else None
+        self.network = models.vgg19(weights=weights)
+        self.network.classifier[6] = nn.Linear(
+            self.network.classifier[6].in_features, num_classes
+        )
+
+    def forward(self, images: torch.Tensor) -> torch.Tensor:
+        return self.network(images)
 
 class ImageClassifier_raw(nn.Module):
     def __init__(self, num_classes: int) -> None:
