@@ -97,7 +97,7 @@ def train_model() -> None:
 
     #store for printing
     losses = []
-    validation_accuracy=[]
+    accuracies=[]
 
     print(f"Training on {device}; classes: {', '.join(train_dataset.classes)}")
     for epoch in range(EPOCHS):
@@ -121,7 +121,7 @@ def train_model() -> None:
         validation_accuracy = correct / len(val_dataset)
         average_loss = total_loss / len(train_dataset)
         losses.append(average_loss)
-        validation_accuracy.append(validation_accuracy)
+        accuracies.append(validation_accuracy)
 
         print(
             f"Epoch {epoch + 1}/{EPOCHS} - "
@@ -151,7 +151,7 @@ def train_model() -> None:
     plt.grid(True)
     plt.savefig("training_loss_curve.png")
 
-    plt.plot(range(1, EPOCHS + 1), losses, marker="o")
+    plt.plot(range(1, EPOCHS + 1), accuracies, marker="o")
     plt.title("accuracy Curve")
     plt.xlabel("Epoch")
     plt.ylabel("accuracy")
