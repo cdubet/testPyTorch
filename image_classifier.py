@@ -18,8 +18,8 @@ IMAGE_SIZE = 224
 # Common practice suggests using a batch size between 8 and 128, depending on the dataset and model requirements.
 BATCH_SIZE = 8
 EPOCHS = 30
-ARCHITECTURE = "resnet18"
-#ARCHITECTURE = "vgg19"
+ARCHITECTURE = "vgg19"
+#ARCHITECTURE = "resnet18"
 #https://github.com/MaitreyaM/Detailed-Image-Classification-Pytorch/blob/main/VGG19_classification.ipynb
 #num_features=vgg19.classifier[6].in_features
 #vgg19.classifier[6]=nn.Linear(num_features,6)
@@ -30,9 +30,11 @@ ARCHITECTURE = "resnet18"
 class ImageClassifier(nn.Module):
     def __init__(self, num_classes: int, pretrained: bool = False) -> None:
         super().__init__()
-        weights = models.ResNet18_Weights.DEFAULT if pretrained else None
-        self.network = models.resnet18(weights=weights)
-        self.network.fc = nn.Linear(self.network.fc.in_features, num_classes)
+        weights = models.VGG19_Weights.DEFAULT if pretrained else None
+        self.network = models.vgg19(weights=weights)
+        self.network.classifier[6] = nn.Linear(
+            self.network.classifier[6].in_features, num_classes
+        )
 
     def forward(self, images: torch.Tensor) -> torch.Tensor:
         return self.network(images)
@@ -85,12 +87,12 @@ def train_model() -> None:
     backbone_parameters = [
         parameter
         for name, parameter in model.network.named_parameters()
-        if not name.startswith("fc.")
+        if not name.startswith("classifier.6.")
     ]
     optimizer = torch.optim.AdamW(
         [
             {"params": backbone_parameters, "lr": 1e-5},
-            {"params": model.network.fc.parameters(), "lr": 1e-3},
+            {"params": model.network.classifier[6].parameters(), "lr": 1e-3},
         ]
     )
     best_accuracy = -1.0
@@ -174,7 +176,7 @@ def classify_image(image_path: Path) -> None:
     checkpoint = torch.load(MODEL_PATH, map_location=device)
     if checkpoint.get("architecture") != ARCHITECTURE:
         raise ValueError(
-            "This model checkpoint was not created with ResNet-18. "
+            "This model checkpoint was not created with VGG-19. "
             "Train a new model with -train before classifying images."
         )
     classes = checkpoint["classes"]
