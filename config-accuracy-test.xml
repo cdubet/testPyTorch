@@ -1,227 +1,351 @@
 <?xml version='1.0' encoding='utf-8'?>
 
+<!-- 50 test files per category -->
 <configuration>
     <root_dir>"Test_Images"</root_dir>
-    
-    <test_item file="Becherglass-250ml-neu-8.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-17.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-19.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-21.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-25.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-31.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-36.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-43.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-54.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-51.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-62.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-neu-69.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-1.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-18.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-48.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-70.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-91.jpg" expected="Becher"/>
-	<test_item file="Becherglass-250ml-114.jpg" expected="Becher"/>
-	<test_item file="Becherglass-50ml-1.jpg" expected="Becher"/>
-	<test_item file="Becherglass-50ml-15.jpg" expected="Becher"/>
-	<test_item file="Becherglass-50ml-31.jpg" expected="Becher"/>
-    <test_item file="erlenmeyer-100ml-1.png" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer-100ml-7.png" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer-100ml-15.png" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer-100ml-132.png" expected="Erlenmeyer"/>
-    <test_item file="erlenmeyer-100ml-old-5.JPG" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer-100ml-old-10.JPG" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer-100ml-old-12.JPG" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer-100ml-old-15.JPG" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer200ml-26.jpg" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer200ml-40.jpg" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer200ml-7.jpg" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer200ml-55.jpg" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer200ml-60.jpg" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer200ml-65.jpg" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer200ml-77.jpg" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer200ml-94.jpg" expected="Erlenmeyer"/>
-	<test_item file="erlenmeyer200ml-97.jpg" expected="Erlenmeyer"/>
-	<test_item file="Erlenmeyer-1.jpg" expected="Erlenmeyer"/>
-	<test_item file="Erlenmeyer-2.jpg" expected="Erlenmeyer"/>
-	<test_item file="Erlenmeyer-3.jpg" expected="Erlenmeyer"/>
-	<test_item file="Erlenmeyer-4.jpg" expected="Erlenmeyer"/>
-	<test_item file="Erlenmeyer-5.jpg" expected="Erlenmeyer"/>
-	<test_item file="Erlenmeyer-6.jpg" expected="Erlenmeyer"/>
-	<test_item file="Erlenmeyer-7.jpg" expected="Erlenmeyer"/>
-	<test_item file="Erlenmeyer-8.jpg" expected="Erlenmeyer"/>
-	<test_item file="Erlenmeyer-9.jpg" expected="Erlenmeyer"/>
-    <test_item file="reagenglas-1.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglas-7.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglas-12.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglas-18.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglas-22.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglas-26.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglas-28.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglas-30.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-1.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-5.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-10.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-17.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-20.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-25.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-30.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-34.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-39.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-43.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-50.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-59.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-61.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-67.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-70.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-77.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-80.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-85.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-90.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-93.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-99.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-102.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-110.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-117.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-120.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-145.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-148.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-150.jpg" expected="Reagenzglas"/>
-	<test_item file="reagenglass-new-157.jpg" expected="Reagenzglas"/>
-	<test_item file="pipette_schwarz-1.jpg" expected="Pipette"/>
-	<test_item file="pipette_schwarz-3.jpg" expected="Pipette"/>
-	<test_item file="pipette_schwarz-4.jpg" expected="Pipette"/>
-	<test_item file="pipette_schwarz-6.jpg" expected="Pipette"/>
-	<test_item file="pipette_schwarz-10.jpg" expected="Pipette"/>
-	<test_item file="pipette_schwarz-17.jpg" expected="Pipette"/>
-	<test_item file="pipette_schwarz-23.jpg" expected="Pipette"/>
-	<test_item file="pipette_schwarz-26.jpg" expected="Pipette"/>
-	<test_item file="pipette-1ml-blau-1.jpg" expected="Pipette"/>
-	<test_item file="pipette-1ml-blau-2.jpg" expected="Pipette"/>
-	<test_item file="pipette-1ml-blau-6.jpg" expected="Pipette"/>
-	<test_item file="pipette-1ml-blau-9.jpg" expected="Pipette"/>
-	<test_item file="pipette-1ml-blau-12.jpg" expected="Pipette"/>
-	<test_item file="pipette-1ml-blau-16.jpg" expected="Pipette"/>
-	<test_item file="pipette-1ml-blau-19.jpg" expected="Pipette"/>
-	<test_item file="pipette-1ml-blau-29.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-1.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-2.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-5.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-7.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-9.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-11.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-13.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-15.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-17.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-20.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-24.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-27.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-32.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-38.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-44.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-50.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-53.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-55.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-58.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-59.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-61.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-64.jpg" expected="Pipette"/>
-	<test_item file="pipette-2ml-rot-66.jpg" expected="Pipette"/>
-	<test_item file="messkolben-50ml-2.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-4.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-8.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-16.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-20.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-28.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-25.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-15.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-7.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-8.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-11.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-36.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-47.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-52.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-58.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-64.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-70.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-77.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-85.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-90.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-100.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-112.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-120.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-145.jpg" expected="Kolben"/>
-	<test_item file="messkolben-50ml-155.jpg" expected="Kolben"/>
-	<test_item file="meskolben-klein-3.jpg" expected="Kolben"/>
-	<test_item file="meskolben-klein-13.jpg" expected="Kolben"/>
-	<test_item file="meskolben-klein-35.jpg" expected="Kolben"/>
-	<test_item file="meskolben-klein-47.jpg" expected="Kolben"/>
-	<test_item file="meskolben-klein-81.jpg" expected="Kolben"/>
-	<test_item file="meskolben-klein-114.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-1.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-3.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-5.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-7.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-10.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-11.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-12.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-14.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-16.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-17.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-18.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-22.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-30.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-35.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-40.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-43.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-45.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-47.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-50.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-52.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-54.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-56.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-58.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-60.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-67.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-75.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-78.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-80.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-84.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-86.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-88.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-90.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-92.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-100.jpg" expected="Kolben"/>
-	<test_item file="rundkolben-new-250ml-107.jpg" expected="Kolben"/>
-	<test_item file="messzylinder-50ml-1.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-3.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-8.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-12.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-18.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-22.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-27.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-32.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-35.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-42.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-54.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-56.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-61.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-66.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-72.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-77.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-81.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-84.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-92.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-100.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-103.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-108.jpg" expected="Messzylinder"/>
-	<test_item file="messzylinder-50ml-111.jpg" expected="Messzylinder"/>
-	<test_item file="messzynlinder-25ml-1.jpg" expected="Messzylinder"/>
-	<test_item file="messzynlinder-25ml-17.jpg" expected="Messzylinder"/>
-	<test_item file="messzynlinder-25ml-29.jpg" expected="Messzylinder"/>
-	<test_item file="messzynlinder-25ml-71.jpg" expected="Messzylinder"/>
-	<test_item file="messzynlinder-25ml-102.jpg" expected="Messzylinder"/>
-	<test_item file="messzynlinder-25ml-105.jpg" expected="Messzylinder"/>
-	
 
-	
+    <test_item file="Becherglass-250ml-neu-8.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-17.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-19.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-21.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-25.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-31.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-36.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-43.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-54.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-51.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-62.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-neu-69.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-1.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-18.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-48.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-70.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-91.jpg" expected="Becher"/>
+    <test_item file="Becherglass-250ml-114.jpg" expected="Becher"/>
+    <test_item file="Becherglass-50ml-1.jpg" expected="Becher"/>
+    <test_item file="Becherglass-50ml-15.jpg" expected="Becher"/>
+    <test_item file="Becherglass-50ml-31.jpg" expected="Becher"/>
+    <test_item file="becher_3335.JPG" expected="Becher"/>
+    <test_item file="becher_3341.JPG" expected="Becher"/>
+    <test_item file="becher_3347.JPG" expected="Becher"/>
+    <test_item file="becher_3340.JPG" expected="Becher"/>
+    <test_item file="becher_3345.JPG" expected="Becher"/>
+    <test_item file="becher_3377.JPG" expected="Becher"/>
+    <test_item file="becher_3372.1.JPG" expected="Becher"/>
+    <test_item file="Becher_3231.JPG" expected="Becher"/>
+    <test_item file="Becher_3381.JPG" expected="Becher"/>
+    <test_item file="Becher_3281.JPG" expected="Becher"/>
+    <test_item file="Becher_3290.JPG" expected="Becher"/>  
+    <test_item file="Becher_3296.JPG" expected="Becher"/>  
+    <test_item file="Becher_3369.JPG" expected="Becher"/>
+    <test_item file="Becher_3297.JPG" expected="Becher"/>  
+    <test_item file="Becher_3371.JPG" expected="Becher"/>
+    <test_item file="Becher_3292.JPG" expected="Becher"/>  
+    <test_item file="Becher_3287.JPG" expected="Becher"/>  
+    <test_item file="Becher_3293.JPG" expected="Becher"/>  
+    <test_item file="Becher_3300.JPG" expected="Becher"/>
+    <test_item file="Becher_3288.JPG" expected="Becher"/>  
+    <test_item file="Becher_3295.JPG" expected="Becher"/>  
+    <test_item file="Becher_3301.JPG" expected="Becher"/>
+    <test_item file="becher_3351.JPG" expected="Becher"/>  
+    <test_item file="becher_3368.JPG" expected="Becher"/>
+    <test_item file="becher_3353.JPG" expected="Becher"/>  
+    <test_item file="becher_3360.JPG" expected="Becher"/>  
+    <test_item file="becher_3365.JPG" expected="Becher"/>
+    <test_item file="becher_3354.JPG" expected="Becher"/>  
+    <test_item file="becher_3362.JPG" expected="Becher"/>  
+
+    <test_item file="erlenmeyer-100ml-old-12.JPG" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer-100ml-old-15.JPG" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer200ml-26.jpg" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer200ml-40.jpg" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer200ml-7.jpg" expected="Erlenmeyer"/>
+
+    <test_item file="erlenmeyer200ml-60.jpg" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer200ml-65.jpg" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer200ml-77.jpg" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer200ml-94.jpg" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer200ml-97.jpg" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer-1.jpg" expected="Erlenmeyer"/>cd
+    <test_item file="Erlenmeyer-2.jpg" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer-3.jpg" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer-4.jpg" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer-5.jpg" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer-6.jpg" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer-7.jpg" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer-8.jpg" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer-9.jpg" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_10.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_3.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_7.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_17.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_40.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_80.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_211.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_42.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_81.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_28.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_44.png" expected="Erlenmeyer"/>
+
+    <test_item file="erlenmeyer100_ml_30.png" expected="Erlenmeyer"/>
+
+    <test_item file="erlenmeyer100_ml_83.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_32.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_52.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_84.png" expected="Erlenmeyer"/>
+
+    <test_item file="erlenmeyer100_ml_53.png" expected="Erlenmeyer"/>
+
+    <test_item file="erlenmeyer100_ml_35.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_68.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_86.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_37.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_6.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_38.png" expected="Erlenmeyer"/>
+    <test_item file="erlenmeyer100_ml_79.png" expected="Erlenmeyer"/>
+
+    <test_item file="Erlenmeyer_3318.JPG" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer_3326.JPG" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer_3257.JPG" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer_3322.JPG" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer_3328.JPG" expected="Erlenmeyer"/>
+
+    <test_item file="Erlenmeyer_3323.JPG" expected="Erlenmeyer"/>
+    <test_item file="Erlenmeyer_3329.JPG" expected="Erlenmeyer"/>
+
+
+    <test_item file="reagenglas-1.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglas-7.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglas-12.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglas-18.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglas-22.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglas-26.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglas-28.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglas-30.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-1.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-5.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-10.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-17.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-20.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-25.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-30.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-34.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-39.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-43.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-50.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-59.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-61.jpg" expected="Reagenzglas"/>
+
+    <test_item file="reagenglass-new-70.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-77.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-80.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-85.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-90.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-93.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-99.jpg" expected="Reagenzglas"/>
+
+    <test_item file="reagenglass-new-110.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-117.jpg" expected="Reagenzglas"/>
+
+
+    <test_item file="reagenglass-new-148.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-150.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenglass-new-157.jpg" expected="Reagenzglas"/>
+
+
+<test_item file="reagenzglas_take7_1_0002.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0019.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0004.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0022.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0005.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0030.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0006.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0038.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0007.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0044.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0008.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0048.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0009.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0050.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0010.jpg" expected="Reagenzglas"/>
+<test_item file="reagenzglas_take7_1_0053.jpg" expected="Reagenzglas"/>
+
+<test_item file="reagenzglas_take7_1_0060.jpg" expected="Reagenzglas"/>
+
+
+    <test_item file="pipette_schwarz-1.jpg" expected="Pipette"/>
+    <test_item file="pipette_schwarz-3.jpg" expected="Pipette"/>
+    <test_item file="pipette_schwarz-4.jpg" expected="Pipette"/>
+    <test_item file="pipette_schwarz-6.jpg" expected="Pipette"/>
+    <test_item file="pipette_schwarz-10.jpg" expected="Pipette"/>
+    <test_item file="pipette_schwarz-17.jpg" expected="Pipette"/>
+    <test_item file="pipette_schwarz-23.jpg" expected="Pipette"/>
+    <test_item file="pipette_schwarz-26.jpg" expected="Pipette"/>
+    <test_item file="pipette-1ml-blau-1.jpg" expected="Pipette"/>
+    <test_item file="pipette-1ml-blau-2.jpg" expected="Pipette"/>
+    <test_item file="pipette-1ml-blau-6.jpg" expected="Pipette"/>
+    <test_item file="pipette-1ml-blau-9.jpg" expected="Pipette"/>
+    <test_item file="pipette-1ml-blau-12.jpg" expected="Pipette"/>
+    <test_item file="pipette-1ml-blau-16.jpg" expected="Pipette"/>
+    <test_item file="pipette-1ml-blau-19.jpg" expected="Pipette"/>
+    <test_item file="pipette-1ml-blau-29.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-1.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-2.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-5.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-7.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-9.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-11.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-13.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-15.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-17.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-20.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-24.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-27.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-32.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-38.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-44.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-50.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-53.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-55.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-58.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-59.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-61.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-64.jpg" expected="Pipette"/>
+    <test_item file="pipette-2ml-rot-66.jpg" expected="Pipette"/>
+    <test_item file="pipette_take7_0003.jpg" expected="Pipette"/>
+    <test_item file="pipette_take7_0010.jpg" expected="Pipette"/>
+    <test_item file="pipette_take7_0028.jpg" expected="Pipette"/>
+
+    <test_item file="pipette_take7_0011.jpg" expected="Pipette"/>
+    <test_item file="pipette_take7_0029.jpg" expected="Pipette"/>
+    <test_item file="pipette_take7_0006.jpg" expected="Pipette"/>
+    <test_item file="pipette_take7_0022.jpg" expected="Pipette"/>
+
+    <test_item file="pipette_take7_0007.jpg" expected="Pipette"/>
+    <test_item file="pipette_take7_0023.jpg" expected="Pipette"/>
+
+    <test_item file="pipette_take7_0024.jpg" expected="Pipette"/>
+    <test_item file="pipette_3717.jpg" expected="Pipette"/>
+
+
+    <test_item file="messkolben-50ml-2.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-16.jpg" expected="Kolben"/>
+
+    <test_item file="messkolben-50ml-28.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-25.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-15.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-7.jpg" expected="Kolben"/>
+
+
+    <test_item file="messkolben-50ml-47.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-52.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-58.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-64.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-70.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-77.jpg" expected="Kolben"/>
+
+    <test_item file="messkolben-50ml-90.jpg" expected="Kolben"/>
+
+    <test_item file="messkolben-50ml-112.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-120.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-145.jpg" expected="Kolben"/>
+    <test_item file="messkolben-50ml-155.jpg" expected="Kolben"/>
+    <test_item file="meskolben-klein-3.jpg" expected="Kolben"/>
+    <test_item file="meskolben-klein-13.jpg" expected="Kolben"/>
+    <test_item file="meskolben-klein-35.jpg" expected="Kolben"/>
+    <test_item file="meskolben-klein-47.jpg" expected="Kolben"/>
+    <test_item file="meskolben-klein-81.jpg" expected="Kolben"/>
+
+    <test_item file="rundkolben-new-250ml-1.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-3.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-5.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-7.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-10.jpg" expected="Kolben"/>
+
+    <test_item file="rundkolben-new-250ml-12.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-14.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-16.jpg" expected="Kolben"/>
+
+    <test_item file="rundkolben-new-250ml-18.jpg" expected="Kolben"/>
+
+    <test_item file="rundkolben-new-250ml-30.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-35.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-40.jpg" expected="Kolben"/>
+
+    <test_item file="rundkolben-new-250ml-45.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-47.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-50.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-52.jpg" expected="Kolben"/>
+
+
+    <test_item file="rundkolben-new-250ml-58.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-60.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-67.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-75.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-78.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-80.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-84.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-86.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-88.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-90.jpg" expected="Kolben"/>
+    <test_item file="rundkolben-new-250ml-92.jpg" expected="Kolben"/>
+
+    <test_item file="rundkolben-new-250ml-107.jpg" expected="Kolben"/>
+
+
+    <test_item file="messzylinder-50ml-3.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-8.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-12.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-18.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-22.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-27.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-32.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-35.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-42.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-54.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-56.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-61.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-66.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-72.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-77.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-81.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-84.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-92.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-100.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-103.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder-50ml-108.jpg" expected="Messzylinder"/>
+
+    <test_item file="messzynlinder-25ml-1.jpg" expected="Messzylinder"/>
+    <test_item file="messzynlinder-25ml-17.jpg" expected="Messzylinder"/>
+    <test_item file="messzynlinder-25ml-29.jpg" expected="Messzylinder"/>
+    <test_item file="messzynlinder-25ml-71.jpg" expected="Messzylinder"/>
+    <test_item file="messzynlinder-25ml-102.jpg" expected="Messzylinder"/>
+    <test_item file="messzynlinder-25ml-105.jpg" expected="Messzylinder"/>
+    <test_item file="Messzylinder-50ml_3263.JPG" expected="Messzylinder"/>
+    <test_item file="Messzylinder-50ml_3269.JPG" expected="Messzylinder"/>
+    <test_item file="Messzylinder-50ml_3264.JPG" expected="Messzylinder"/>
+    <test_item file="Messzylinder-50ml_3273.JPG" expected="Messzylinder"/>
+
+    <test_item file="Messzylinder-50ml_3276.JPG" expected="Messzylinder"/>
+    <test_item file="Messzylinder-50ml_3267.JPG" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0019.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0022.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0028.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0031.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0032.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0007.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0035.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0008.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0036.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0009.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0041.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0010.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0042.jpg" expected="Messzylinder"/>
+
+    <test_item file="messzylinder_take7_1_0013.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0047.jpg" expected="Messzylinder"/>
+
+    <test_item file="messzylinder_take7_1_0052.jpg" expected="Messzylinder"/>
+    <test_item file="messzylinder_take7_1_0018.jpg" expected="Messzylinder"/>
+
 </configuration>

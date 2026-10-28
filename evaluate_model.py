@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from sklearn.metrics import confusion_matrix
 from sympy import false
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
@@ -30,12 +31,26 @@ from sklearn.preprocessing import LabelEncoder
 from shared import  get_image_width, get_image_height
 import numpy as np
 
+
+import seaborn as sns
 from PIL import Image, ImageOps
 
 import logging
 low_threshold=0
 
 logger = logging.getLogger(__name__)
+
+def print_confusion_matrix (all_labels,all_preds,class_names):
+    #based on https://github.com/MaitreyaM/Detailed-Image-Classification-Pytorch/blob/main/VGG19_classification.ipynb
+    cm = confusion_matrix(all_labels, all_preds)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+                xticklabels=class_names, yticklabels=class_names)
+    plt.xlabel("Predicted Class")
+    plt.ylabel("True Class")
+    plt.title("Confusion Matrix")
+    plt.show()
+    plt.savefig("confusion.png")
 
 def get_model( model_path: Path,device):
     if not model_path.is_file():
@@ -97,6 +112,9 @@ def evaluate_model(config_path: str,
 
     total = 0
     passed = 0
+    all_preds = []
+    all_labels = []
+    #list[str]
 
     for test_item in config_root.findall("test_item"):
         file_name = test_item.get("file", "")
@@ -125,6 +143,9 @@ def evaluate_model(config_path: str,
 
         print(f"Predicting for {image_path}...")
         got,confidence=classify_image(image_path, model, device, classes)
+
+        all_preds.append(got.casefold())
+        all_labels.append(expected.casefold())
 
         attrs = {
             "file": file_name,
@@ -157,6 +178,10 @@ def evaluate_model(config_path: str,
     ET.indent(result_root, space="    ")
     result_tree = ET.ElementTree(result_root)
     result_tree.write(output_file, encoding="utf-8", xml_declaration=True)
+
+    #TODO get the names from model
+    class_names = classes
+    print_confusion_matrix(all_labels, all_preds, class_names)
 
     return output_file
 
