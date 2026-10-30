@@ -35,25 +35,25 @@
     <test_item file="Becher_3231.JPG" expected="Becher"/>
     <test_item file="Becher_3381.JPG" expected="Becher"/>
     <test_item file="Becher_3281.JPG" expected="Becher"/>
-    <test_item file="Becher_3290.JPG" expected="Becher"/>  
-    <test_item file="Becher_3296.JPG" expected="Becher"/>  
+    <test_item file="Becher_3290.JPG" expected="Becher"/>
+    <test_item file="Becher_3296.JPG" expected="Becher"/>
     <test_item file="Becher_3369.JPG" expected="Becher"/>
-    <test_item file="Becher_3297.JPG" expected="Becher"/>  
+    <test_item file="Becher_3297.JPG" expected="Becher"/>
     <test_item file="Becher_3371.JPG" expected="Becher"/>
-    <test_item file="Becher_3292.JPG" expected="Becher"/>  
-    <test_item file="Becher_3287.JPG" expected="Becher"/>  
-    <test_item file="Becher_3293.JPG" expected="Becher"/>  
+    <test_item file="Becher_3292.JPG" expected="Becher"/>
+    <test_item file="Becher_3287.JPG" expected="Becher"/>
+    <test_item file="Becher_3293.JPG" expected="Becher"/>
     <test_item file="Becher_3300.JPG" expected="Becher"/>
-    <test_item file="Becher_3288.JPG" expected="Becher"/>  
-    <test_item file="Becher_3295.JPG" expected="Becher"/>  
+    <test_item file="Becher_3288.JPG" expected="Becher"/>
+    <test_item file="Becher_3295.JPG" expected="Becher"/>
     <test_item file="Becher_3301.JPG" expected="Becher"/>
-    <test_item file="becher_3351.JPG" expected="Becher"/>  
+    <test_item file="becher_3351.JPG" expected="Becher"/>
     <test_item file="becher_3368.JPG" expected="Becher"/>
-    <test_item file="becher_3353.JPG" expected="Becher"/>  
-    <test_item file="becher_3360.JPG" expected="Becher"/>  
+    <test_item file="becher_3353.JPG" expected="Becher"/>
+    <test_item file="becher_3360.JPG" expected="Becher"/>
     <test_item file="becher_3365.JPG" expected="Becher"/>
-    <test_item file="becher_3354.JPG" expected="Becher"/>  
-    <test_item file="becher_3362.JPG" expected="Becher"/>  
+    <test_item file="becher_3354.JPG" expected="Becher"/>
+    <test_item file="becher_3362.JPG" expected="Becher"/>
 
     <test_item file="erlenmeyer-100ml-old-12.JPG" expected="Erlenmeyer"/>
     <test_item file="erlenmeyer-100ml-old-15.JPG" expected="Erlenmeyer"/>
@@ -153,24 +153,24 @@
     <test_item file="reagenglass-new-157.jpg" expected="Reagenzglas"/>
 
 
-<test_item file="reagenzglas_take7_1_0002.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0019.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0004.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0022.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0005.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0030.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0006.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0038.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0007.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0044.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0008.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0048.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0009.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0050.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0010.jpg" expected="Reagenzglas"/>
-<test_item file="reagenzglas_take7_1_0053.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0002.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0019.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0004.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0022.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0005.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0030.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0006.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0038.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0007.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0044.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0008.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0048.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0009.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0050.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0010.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0053.jpg" expected="Reagenzglas"/>
 
-<test_item file="reagenzglas_take7_1_0060.jpg" expected="Reagenzglas"/>
+    <test_item file="reagenzglas_take7_1_0060.jpg" expected="Reagenzglas"/>
 
 
     <test_item file="pipette_schwarz-1.jpg" expected="Pipette"/>

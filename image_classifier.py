@@ -19,13 +19,15 @@ IMAGE_SIZE = 224
 BATCH_SIZE = 8
 EPOCHS = 30
 ARCHITECTURE = "vgg19"
-#ARCHITECTURE = "resnet18"
-#https://github.com/MaitreyaM/Detailed-Image-Classification-Pytorch/blob/main/VGG19_classification.ipynb
-#num_features=vgg19.classifier[6].in_features
-#vgg19.classifier[6]=nn.Linear(num_features,6)
-#vgg19=vgg19.to(device)
-#criterion=nn.CrossEntropyLoss()
-#optimizer=optim.Adam(vgg19.classifier[6].parameters(),lr=0.001)
+
+
+# ARCHITECTURE = "resnet18"
+# https://github.com/MaitreyaM/Detailed-Image-Classification-Pytorch/blob/main/VGG19_classification.ipynb
+# num_features=vgg19.classifier[6].in_features
+# vgg19.classifier[6]=nn.Linear(num_features,6)
+# vgg19=vgg19.to(device)
+# criterion=nn.CrossEntropyLoss()
+# optimizer=optim.Adam(vgg19.classifier[6].parameters(),lr=0.001)
 
 class ImageClassifier(nn.Module):
     def __init__(self, num_classes: int, pretrained: bool = False) -> None:
@@ -38,6 +40,7 @@ class ImageClassifier(nn.Module):
 
     def forward(self, images: torch.Tensor) -> torch.Tensor:
         return self.network(images)
+
 
 def make_transforms(training: bool = False) -> transforms.Compose:
     image_transforms = []
@@ -52,7 +55,7 @@ def make_transforms(training: bool = False) -> transforms.Compose:
     image_transforms.extend(
         [
             transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
-            #TODO test with transforms.CenterCrop(224),
+            # TODO test with transforms.CenterCrop(224),
             transforms.ToTensor(),
             transforms.Normalize(
                 mean=(0.485, 0.456, 0.406),
@@ -97,9 +100,9 @@ def train_model() -> None:
     )
     best_accuracy = -1.0
 
-    #store for printing
+    # store for printing
     losses = []
-    accuracies=[]
+    accuracies = []
 
     print(f"Training on {device}; classes: {', '.join(train_dataset.classes)}")
     for epoch in range(EPOCHS):
@@ -144,7 +147,6 @@ def train_model() -> None:
 
     print(f"Best validation accuracy: {best_accuracy:.1%}")
     print(f"Model saved to {MODEL_PATH}")
-
 
     plt.plot(range(1, EPOCHS + 1), losses, marker="o")
     plt.title("Training Loss Curve")
