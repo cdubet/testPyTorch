@@ -30,8 +30,8 @@ ARCHITECTURE = "resnet18"
 class ImageClassifier(nn.Module):
     def __init__(self, num_classes: int, pretrained: bool = False) -> None:
         super().__init__()
-        weights = models.ResNet18_Weights.DEFAULT if pretrained else None
-        self.network = models.resnet18(weights=weights)
+        weights = models.ResNet50_Weights.DEFAULT if pretrained else None
+        self.network = models.resnet50(weights=weights)
         self.network.fc = nn.Linear(self.network.fc.in_features, num_classes)
 
     def forward(self, images: torch.Tensor) -> torch.Tensor:
