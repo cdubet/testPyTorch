@@ -62,7 +62,8 @@ def get_model(model_path: Path, device):
 
     checkpoint = torch.load(model_path, map_location=device)
     classes = checkpoint["classes"]
-    model = ImageClassifier_vgg19(len(classes)).to(device)  # ImageClassifier_Resnet18(len(classes)).to(device)
+    #model = ImageClassifier_vgg19(len(classes)).to(device)  # ImageClassifier_Resnet18(len(classes)).to(device)
+    model = ImageClassifier_Resnet18(len(classes)).to(device) 
     model.load_state_dict(checkpoint["model_state"])
     model.eval()
     return model, classes
