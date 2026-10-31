@@ -32,16 +32,14 @@ class ImageClassifier(nn.Module):
 def make_transforms(training: bool = False) -> transforms.Compose:
     if training:
         image_transforms = [
-            transforms.RandomResizedCrop(
-                IMAGE_SIZE, scale=(0.8, 1.0), ratio=(0.9, 1.1)
-            ),
+            transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
             transforms.RandomHorizontalFlip(),
             transforms.RandomRotation(10),
             transforms.ColorJitter(brightness=0.15, contrast=0.15, saturation=0.1),
         ]
     else:
         image_transforms = [
-            transforms.Resize(IMAGE_SIZE + 32),
+            transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
             transforms.CenterCrop(IMAGE_SIZE),
         ]
     image_transforms.extend(
