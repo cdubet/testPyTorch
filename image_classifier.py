@@ -14,18 +14,10 @@ VAL_DIR = BASE_DIR / "DATASET" / "VAL"
 MODEL_PATH = BASE_DIR / "model.pth"
 IMAGE_SIZE = 224
 
-# The batch size in a DataLoader determines how many samples are processed together in one iteration during training.
-# Common practice suggests using a batch size between 8 and 128, depending on the dataset and model requirements.
 BATCH_SIZE = 8
 EPOCHS = 30
-ARCHITECTURE = "resnet18"
-#ARCHITECTURE = "vgg19"
-#https://github.com/MaitreyaM/Detailed-Image-Classification-Pytorch/blob/main/VGG19_classification.ipynb
-#num_features=vgg19.classifier[6].in_features
-#vgg19.classifier[6]=nn.Linear(num_features,6)
-#vgg19=vgg19.to(device)
-#criterion=nn.CrossEntropyLoss()
-#optimizer=optim.Adam(vgg19.classifier[6].parameters(),lr=0.001)
+ARCHITECTURE = "resnet50"
+LEGACY_ARCHITECTURE = "resnet18"
 
 class ImageClassifier(nn.Module):
     def __init__(self, num_classes: int, pretrained: bool = False) -> None:
@@ -38,19 +30,22 @@ class ImageClassifier(nn.Module):
         return self.network(images)
 
 def make_transforms(training: bool = False) -> transforms.Compose:
-    image_transforms = []
     if training:
-        image_transforms.extend(
-            [
-                transforms.RandomHorizontalFlip(),
-                transforms.RandomRotation(10),
-                transforms.ColorJitter(brightness=0.15, contrast=0.15),
-            ]
-        )
+        image_transforms = [
+            transforms.RandomResizedCrop(
+                IMAGE_SIZE, scale=(0.8, 1.0), ratio=(0.9, 1.1)
+            ),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomRotation(10),
+            transforms.ColorJitter(brightness=0.15, contrast=0.15, saturation=0.1),
+        ]
+    else:
+        image_transforms = [
+            transforms.Resize(IMAGE_SIZE + 32),
+            transforms.CenterCrop(IMAGE_SIZE),
+        ]
     image_transforms.extend(
         [
-            transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
-            #TODO test with transforms.CenterCrop(224),
             transforms.ToTensor(),
             transforms.Normalize(
                 mean=(0.485, 0.456, 0.406),
@@ -78,8 +73,18 @@ def train_model() -> None:
         )
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
+    train_loader = DataLoader(
+        train_dataset,
+        batch_size=BATCH_SIZE,
+        shuffle=True,
+        pin_memory=device.type == "cuda",
+    )
+    val_loader = DataLoader(
+        val_dataset,
+        batch_size=BATCH_SIZE,
+        shuffle=False,
+        pin_memory=device.type == "cuda",
+    )
     model = ImageClassifier(len(train_dataset.classes), pretrained=True).to(device)
     loss_function = nn.CrossEntropyLoss()
     backbone_parameters = [
@@ -89,41 +94,62 @@ def train_model() -> None:
     ]
     optimizer = torch.optim.AdamW(
         [
-            {"params": backbone_parameters, "lr": 1e-5},
-            {"params": model.network.fc.parameters(), "lr": 1e-3},
+            {"params": backbone_parameters, "lr": 5e-5},
+            {"params": model.network.fc.parameters(), "lr": 5e-4},
         ]
+    )
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer, mode="max", factor=0.2, patience=3, min_lr=1e-7
     )
     best_accuracy = -1.0
 
-    #store for printing
-    losses = []
+    train_losses = []
+    train_accuracies = []
+    val_losses = []
+    val_accuracies = []
 
     print(f"Training on {device}; classes: {', '.join(train_dataset.classes)}")
     for epoch in range(EPOCHS):
         model.train()
         total_loss = 0.0
+        train_correct = 0
         for images, labels in train_loader:
-            images, labels = images.to(device), labels.to(device)
-            optimizer.zero_grad()
-            loss = loss_function(model(images), labels)
+            images = images.to(device, non_blocking=True)
+            labels = labels.to(device, non_blocking=True)
+            optimizer.zero_grad(set_to_none=True)
+            outputs = model(images)
+            loss = loss_function(outputs, labels)
             loss.backward()
             optimizer.step()
             total_loss += loss.item() * images.size(0)
+            train_correct += (outputs.argmax(dim=1) == labels).sum().item()
 
         model.eval()
         correct = 0
+        validation_loss = 0.0
         with torch.no_grad():
             for images, labels in val_loader:
-                outputs = model(images.to(device))
-                correct += (outputs.argmax(dim=1).cpu() == labels).sum().item()
+                images = images.to(device, non_blocking=True)
+                labels = labels.to(device, non_blocking=True)
+                outputs = model(images)
+                validation_loss += loss_function(outputs, labels).item() * images.size(0)
+                correct += (outputs.argmax(dim=1) == labels).sum().item()
 
         validation_accuracy = correct / len(val_dataset)
         average_loss = total_loss / len(train_dataset)
-        losses.append(average_loss)
+        average_validation_loss = validation_loss / len(val_dataset)
+        train_accuracy = train_correct / len(train_dataset)
+        train_losses.append(average_loss)
+        train_accuracies.append(train_accuracy)
+        val_losses.append(average_validation_loss)
+        val_accuracies.append(validation_accuracy)
+        scheduler.step(validation_accuracy)
 
         print(
             f"Epoch {epoch + 1}/{EPOCHS} - "
-            f"loss: {average_loss:.4f} - val accuracy: {validation_accuracy:.1%}"
+            f"loss: {average_loss:.4f} - train accuracy: {train_accuracy:.1%} - "
+            f"val loss: {average_validation_loss:.4f} - "
+            f"val accuracy: {validation_accuracy:.1%}"
         )
 
         if validation_accuracy > best_accuracy:
@@ -134,6 +160,7 @@ def train_model() -> None:
                     "model_state": model.state_dict(),
                     "classes": train_dataset.classes,
                     "image_size": IMAGE_SIZE,
+                    "validation_accuracy": validation_accuracy,
                 },
                 MODEL_PATH,
             )
@@ -141,20 +168,28 @@ def train_model() -> None:
     print(f"Best validation accuracy: {best_accuracy:.1%}")
     print(f"Model saved to {MODEL_PATH}")
 
-
-    plt.plot(range(1, EPOCHS + 1), losses, marker="o")
-    plt.title("Training Loss Curve")
+    epochs = range(1, EPOCHS + 1)
+    plt.figure()
+    plt.plot(epochs, train_losses, marker="o", label="Training")
+    plt.plot(epochs, val_losses, marker="o", label="Validation")
+    plt.title("Training and Validation Loss")
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
     plt.grid(True)
+    plt.legend()
     plt.savefig("training_loss_curve.png")
+    plt.close()
 
-    plt.plot(range(1, EPOCHS + 1), losses, marker="o")
-    plt.title("accuracy Curve")
+    plt.figure()
+    plt.plot(epochs, train_accuracies, marker="o", label="Training")
+    plt.plot(epochs, val_accuracies, marker="o", label="Validation")
+    plt.title("Training and Validation Accuracy")
     plt.xlabel("Epoch")
-    plt.ylabel("accuracy")
+    plt.ylabel("Accuracy")
     plt.grid(True)
+    plt.legend()
     plt.savefig("training_accuracy.png")
+    plt.close()
 
 
 # plt.show()
@@ -170,9 +205,10 @@ def classify_image(image_path: Path) -> None:
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     checkpoint = torch.load(MODEL_PATH, map_location=device)
-    if checkpoint.get("architecture") != ARCHITECTURE:
+    # Older versions saved ResNet-50 weights under this incorrect label.
+    if checkpoint.get("architecture") not in {ARCHITECTURE, LEGACY_ARCHITECTURE}:
         raise ValueError(
-            "This model checkpoint was not created with ResNet-18. "
+            "This model checkpoint was not created with ResNet-50. "
             "Train a new model with -train before classifying images."
         )
     classes = checkpoint["classes"]
