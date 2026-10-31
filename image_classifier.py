@@ -43,7 +43,11 @@ class TrainingConfig:
     head_lr: float = 1e-3
     weight_decay: float = 1e-4
     label_smoothing: float = 0.1
+
+    # Set the maximum norm for gradient clipping, which is critical for preventing gradients from exploding during
+    # backpropagation.Default is 5.0.
     max_grad_norm: float = 5.0
+
     num_workers: int = min(8, os.cpu_count() or 1)
     seed: int = 42
     use_amp: bool = True  # mixed precision, only takes effect on CUDA
