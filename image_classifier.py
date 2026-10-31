@@ -18,6 +18,7 @@ IMAGE_SIZE = 224
 # Common practice suggests using a batch size between 8 and 128, depending on the dataset and model requirements.
 BATCH_SIZE = 8
 EPOCHS = 30
+EARLY_STOPPING_PATIENCE = 6
 ARCHITECTURE = "vgg19"
 
 
@@ -82,11 +83,26 @@ def train_model() -> None:
             f"Training: {train_dataset.classes}; validation: {val_dataset.classes}"
         )
 
+    num_classes = len(train_dataset.classes)
+    train_class_counts = torch.bincount(
+        torch.tensor(train_dataset.targets), minlength=num_classes
+    )
+    val_class_counts = torch.bincount(
+        torch.tensor(val_dataset.targets), minlength=num_classes
+    )
+    if (train_class_counts == 0).any() or (val_class_counts == 0).any():
+        raise ValueError(
+            "Every class must contain images in both training and validation."
+        )
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
-    model = ImageClassifier(len(train_dataset.classes), pretrained=True).to(device)
-    loss_function = nn.CrossEntropyLoss()
+    model = ImageClassifier(num_classes, pretrained=True).to(device)
+    class_weights = (
+            len(train_dataset) / (num_classes * train_class_counts.float())
+    ).to(device)
+    loss_function = nn.CrossEntropyLoss(weight=class_weights)
     backbone_parameters = [
         parameter
         for name, parameter in model.network.named_parameters()
@@ -98,43 +114,84 @@ def train_model() -> None:
             {"params": model.network.classifier[6].parameters(), "lr": 1e-3},
         ]
     )
-    best_accuracy = -1.0
+    # ReduceLROnPlateau is a learning rate scheduler used in machine learning to adjust
+    # the learning rate based on the performance of a model.
+    # It is particularly useful when training models that may experience plateaus
+    # in their learning process.
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer,
+        mode="min",  # The learning rate is reduced when the monitored metric stops decreasing.
+        factor=0.2,  # , the new learning rate will be 20% of the current rate.
+        patience=2,  # Number of epochs with no improvement after which learning rate will be reduced.
+        min_lr=1e-7  # The lower bound on the learning rate.
+    )
+    best_balanced_accuracy = -1.0
+    best_validation_accuracy = 0.0
+    epochs_without_improvement = 0
 
     # store for printing
     losses = []
     accuracies = []
+    validation_losses = []
 
     print(f"Training on {device}; classes: {', '.join(train_dataset.classes)}")
     for epoch in range(EPOCHS):
         model.train()
         total_loss = 0.0
+        total_loss_weight = 0.0
         for images, labels in train_loader:
             images, labels = images.to(device), labels.to(device)
             optimizer.zero_grad()
             loss = loss_function(model(images), labels)
             loss.backward()
             optimizer.step()
-            total_loss += loss.item() * images.size(0)
+            batch_weight = class_weights[labels].sum().item()
+            total_loss += loss.item() * batch_weight
+            total_loss_weight += batch_weight
 
         model.eval()
         correct = 0
+        validation_class_correct = torch.zeros(num_classes, dtype=torch.long)
+        validation_loss_total = 0.0
+        validation_loss_weight = 0.0
         with torch.no_grad():
             for images, labels in val_loader:
+                labels_on_device = labels.to(device)
                 outputs = model(images.to(device))
-                correct += (outputs.argmax(dim=1).cpu() == labels).sum().item()
+                batch_weight = class_weights[labels_on_device].sum().item()
+                validation_loss_total += loss_function(
+                    outputs, labels_on_device
+                ).item() * batch_weight
+                validation_loss_weight += batch_weight
+                predictions = outputs.argmax(dim=1).cpu()
+                matches = predictions == labels
+                correct += matches.sum().item()
+                validation_class_correct += torch.bincount(
+                    labels[matches], minlength=num_classes
+                )
 
         validation_accuracy = correct / len(val_dataset)
-        average_loss = total_loss / len(train_dataset)
+        balanced_accuracy = (
+                validation_class_correct.float() / val_class_counts
+        ).mean().item()
+        average_loss = total_loss / total_loss_weight
+        average_validation_loss = validation_loss_total / validation_loss_weight
         losses.append(average_loss)
         accuracies.append(validation_accuracy)
+        validation_losses.append(average_validation_loss)
+        scheduler.step(average_validation_loss)
 
         print(
             f"Epoch {epoch + 1}/{EPOCHS} - "
-            f"loss: {average_loss:.4f} - val accuracy: {validation_accuracy:.1%}"
+            f"loss: {average_loss:.4f} - val loss: {average_validation_loss:.4f} - "
+            f"val accuracy: {validation_accuracy:.1%} - "
+            f"balanced accuracy: {balanced_accuracy:.1%}"
         )
 
-        if validation_accuracy > best_accuracy:
-            best_accuracy = validation_accuracy
+        if balanced_accuracy > best_balanced_accuracy:
+            best_balanced_accuracy = balanced_accuracy
+            best_validation_accuracy = validation_accuracy
+            epochs_without_improvement = 0
             torch.save(
                 {
                     "architecture": ARCHITECTURE,
@@ -144,23 +201,34 @@ def train_model() -> None:
                 },
                 MODEL_PATH,
             )
+        else:
+            epochs_without_improvement += 1
+            if epochs_without_improvement >= EARLY_STOPPING_PATIENCE:
+                print(f"Early stopping after {epoch + 1} epochs.")
+                break
 
-    print(f"Best validation accuracy: {best_accuracy:.1%}")
+    print(f"Best validation balanced accuracy: {best_balanced_accuracy:.1%}")
+    print(f"Accuracy at selected checkpoint: {best_validation_accuracy:.1%}")
     print(f"Model saved to {MODEL_PATH}")
 
-    plt.plot(range(1, EPOCHS + 1), losses, marker="o")
+    epochs = range(1, len(losses) + 1)
+    plt.plot(epochs, losses, marker="o", label="Training")
+    plt.plot(epochs, validation_losses, marker="o", label="Validation")
     plt.title("Training Loss Curve")
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
     plt.grid(True)
+    plt.legend()
     plt.savefig("training_loss_curve.png")
+    plt.close()
 
-    plt.plot(range(1, EPOCHS + 1), accuracies, marker="o")
+    plt.plot(epochs, accuracies, marker="o")
     plt.title("accuracy Curve")
     plt.xlabel("Epoch")
     plt.ylabel("accuracy")
     plt.grid(True)
     plt.savefig("training_accuracy.png")
+    plt.close()
 
 
 # plt.show()
