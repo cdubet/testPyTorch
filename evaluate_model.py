@@ -72,7 +72,7 @@ def classify_image(image_path: Path, model, device, classes):
     if not image_path.is_file():
         raise FileNotFoundError(f"Image not found: {image_path}")
 
-    image_transform = make_transforms(get_image_height(), get_image_width(), false)
+    image_transform = make_transforms( false)
     with Image.open(image_path) as image:
         image_tensor = image_transform(image.convert("RGB")).unsqueeze(0).to(device)
 

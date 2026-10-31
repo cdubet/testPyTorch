@@ -32,6 +32,20 @@ class ImageClassifier_vgg19(nn.Module):
     def forward(self, images: torch.Tensor) -> torch.Tensor:
         return self.network(images)
 
+    def backbone_parameters(self):
+        return (
+            parameter
+            for name, parameter in self.network.named_parameters()
+            if not name.startswith("classifier.6.")
+        )
+
+    def head_parameters(self):
+        return self.network.classifier[6].parameters()
+
+    def set_backbone_trainable(self, trainable: bool) -> None:
+        for parameter in self.backbone_parameters():
+            parameter.requires_grad_(trainable)
+
 class ImageClassifier_raw(nn.Module):
     def __init__(self, num_classes: int) -> None:
         super().__init__()
