@@ -8,7 +8,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from sklearn.metrics import confusion_matrix
 from sympy import false
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
@@ -26,21 +25,21 @@ import os
 from PIL import Image
 from tempfile import TemporaryDirectory
 from ChemicalClassifier import ImageClassifier_Resnet18, ImageClassifier_vgg19
-from image_transforms import make_transforms
-from sklearn.preprocessing import LabelEncoder
-from shared import get_image_width, get_image_height
+from image_transforms import  make_transforms
+from shared import  get_image_width, get_image_height
 import numpy as np
-
+from sklearn.metrics import confusion_matrix
 import seaborn as sns
 from PIL import Image, ImageOps
 
-import logging
+import image_classifier
 
-low_threshold = 0
+import logging
+low_threshold=0
 
 logger = logging.getLogger(__name__)
 
-
+RESNET50_ARCHITECTURES = {image_classifier.ARCHITECTURE, image_classifier.LEGACY_ARCHITECTURE}
 def print_confusion_matrix(all_labels, all_preds, class_names):
     # based on https://github.com/MaitreyaM/Detailed-Image-Classification-Pytorch/blob/main/VGG19_classification.ipynb
     cm = confusion_matrix(all_labels, all_preds)
@@ -50,57 +49,58 @@ def print_confusion_matrix(all_labels, all_preds, class_names):
     plt.xlabel("Predicted Class")
     plt.ylabel("True Class")
     plt.title("Confusion Matrix")
-    plt.show()
     plt.savefig("confusion.png")
 
-
-def get_model(model_path: Path, device):
+def get_model( model_path: Path,device):
     if not model_path.is_file():
         raise FileNotFoundError(
             f"Model not found at {model_path}. Train one first with -train."
         )
 
     checkpoint = torch.load(model_path, map_location=device)
+    if checkpoint.get("architecture") in RESNET50_ARCHITECTURES:
+        # Checkpoint from image_classifier.py: reuse its model and preprocessing.
+        model, classes = image_classifier.load_model(model_path, device)
+        return model, classes
     classes = checkpoint["classes"]
-    #model = ImageClassifier_vgg19(len(classes)).to(device)  # ImageClassifier_Resnet18(len(classes)).to(device)
-    model = ImageClassifier_Resnet18(len(classes)).to(device) 
+    model = ImageClassifier_vgg19(len(classes)).to(device) #ImageClassifier_Resnet18(len(classes)).to(device)
     model.load_state_dict(checkpoint["model_state"])
     model.eval()
-    return model, classes
+    return model,classes
 
-
-def classify_image(image_path: Path, model, device, classes):
+def classify_image(image_path: Path, model,device,classes) :
     if not image_path.is_file():
         raise FileNotFoundError(f"Image not found: {image_path}")
 
-    image_transform = make_transforms( false)
-    with Image.open(image_path) as image:
-        image_tensor = image_transform(image.convert("RGB")).unsqueeze(0).to(device)
+    if isinstance(model, image_classifier.ImageClassifier):
+        probabilities = image_classifier.predict_probabilities(model, image_path, device)
+    else:
+        image_transform = make_transforms(get_image_height(),get_image_width(),false)
+        with Image.open(image_path) as image:
+            image_tensor = image_transform(image.convert("RGB")).unsqueeze(0).to(device)
 
-    # no_grad=no gradient
-    with torch.no_grad():
-        probabilities = torch.softmax(model(image_tensor), dim=1)[0]
+        #no_grad=no gradient
+        with torch.no_grad():
+            probabilities = torch.softmax(model(image_tensor), dim=1)[0]
     predicted_index = int(probabilities.argmax().item())
     print(
         f"Prediction: {classes[predicted_index]} "
         f"(confidence: {probabilities[predicted_index].item():.1%})"
     )
-    return classes[predicted_index], probabilities[predicted_index].item()
-
+    return classes[predicted_index],probabilities[predicted_index].item()
 
 def normalize_root_dir_value(raw_root: str) -> str:
     return raw_root.strip().strip('"').strip("'")
 
-
-def evaluate_model(config_path: str,
-                   model_path: str,
-                   output_path: str) -> str:
+def evaluate_model(config_path: str, 
+                   model_path: str, 
+                   output_path: str  ) -> str:
     config_file = Path(config_path)
     if not config_file.exists():
         raise FileNotFoundError(f"Config file not found: {config_path}")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model, classes = get_model(Path(model_path), device)
+    model, classes= get_model(Path(model_path), device)
 
     tree = ET.parse(config_file)
     config_root = tree.getroot()
@@ -120,7 +120,6 @@ def evaluate_model(config_path: str,
     passed = 0
     all_preds = []
     all_labels = []
-    # list[str]
 
     for test_item in config_root.findall("test_item"):
         file_name = test_item.get("file", "")
@@ -131,6 +130,7 @@ def evaluate_model(config_path: str,
         image_path = Path(normalized_root_dir) / file_name if normalized_root_dir else Path(file_name)
         if not image_path.exists():
             image_path = config_file.parent / file_name
+
 
         if not image_path.exists():
             ET.SubElement(
@@ -145,11 +145,27 @@ def evaluate_model(config_path: str,
             )
             continue
 
-        print(f"Predicting for {image_path}...")
-        got, confidence = classify_image(image_path, model, device, classes)
 
-        all_preds.append(got.casefold())
-        all_labels.append(expected.casefold())
+        print(f"Predicting for {image_path}...")
+        try:
+            got,confidence=classify_image(image_path, model, device, classes)
+
+            all_preds.append(got.casefold())
+            all_labels.append(expected.casefold())
+
+        except (OSError, ValueError) as error:
+            print(f"  Unreadable image, counted as failure: {error}")
+            ET.SubElement(
+                fail_node,
+                "test_item",
+                {
+                    "file": file_name,
+                    "expected": expected,
+                    "got": "UNREADABLE_IMAGE",
+                    "confidence_score": "0.00",
+                },
+            )
+            continue
 
         attrs = {
             "file": file_name,
@@ -183,7 +199,6 @@ def evaluate_model(config_path: str,
     result_tree = ET.ElementTree(result_root)
     result_tree.write(output_file, encoding="utf-8", xml_declaration=True)
 
-    # TODO get the names from model
     class_names = classes
     print_confusion_matrix(all_labels, all_preds, class_names)
 
@@ -191,7 +206,7 @@ def evaluate_model(config_path: str,
 
 
 def main() -> None:
-    # for ex
+    #for ex
     # -model mchemical.pth  -labels tensorflow_labels.txt -config config-accuracy-test.xml
 
     parser = argparse.ArgumentParser(
