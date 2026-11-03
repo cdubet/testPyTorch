@@ -39,11 +39,11 @@ IMAGE_SIZE = 224
 
 BATCH_SIZE = 16
 EPOCHS = 30
-FREEZE_EPOCHS = 2
+FREEZE_EPOCHS = 4
 BACKBONE_LR = 3e-5
 HEAD_LR = 1e-3
 WEIGHT_DECAY = 0.05
-LABEL_SMOOTHING = 0.1
+LABEL_SMOOTHING = 0.5
 PATIENCE = 8
 MIX_PROBABILITY = 0.5
 ZOOM_OUT_PROBABILITY = 0.6
@@ -534,7 +534,7 @@ def main() -> None:
     parser.add_argument("--model", type=Path, default=MODEL_PATH, help="checkpoint path to write/read")
     parser.add_argument("--epochs", type=int, default=EPOCHS)
     parser.add_argument("--batch-size", type=int, default=BATCH_SIZE)
-    parser.add_argument("--workers", type=int, default=0, help="DataLoader worker processes")
+    parser.add_argument("--workers", type=int, default=4, help="DataLoader worker processes")
     parser.add_argument(
         "--freeze-epochs", type=int, default=FREEZE_EPOCHS,
         help="epochs to train only the classifier head before unfreezing the backbone",
